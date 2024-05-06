@@ -71,12 +71,25 @@ class StoryListActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
+        when(item.itemId){
+            R.id.action_logout -> {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                viewModel.clearUserSession()
+                finish()
+            }
+            R.id.action_map -> {
+                val intent = Intent(this, MapsActivity::class.java)
+                startActivity(intent)
+            }
+        }
         if(item.itemId == R.id.action_logout){
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             viewModel.clearUserSession()
             finish()
         }
+
         return true
     }
 

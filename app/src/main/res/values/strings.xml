@@ -31,4 +31,6 @@
     <string name="backbutton_warning">Mohon gunakan tombol logout</string>
     <string name="empy_error">Can\'t be empty</string>
     <string name="empty_image_error">Pick an image first</string>
+    <string name="map_button">map button</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
