@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">StroyAppSubmission</string>
+    <string name="login_image">login_image</string>
+    <string name="login">Login</string>
+    <string name="input_email">Masukkan email</string>
+    <string name="input_password">Masukkan password</string>
+    <string name="input_name">Masukkan nama</string>
+    <string name="register">Register</string>
+    <string name="welcome_image">welcome_image</string>
+    <string name="welcome_text">Selamat datang di aplikasi submission!</string>
+    <string name="register_image">register image</string>
+    <string name="email_invalid">Email tidak valid</string>
+    <string name="password_invalid">Password tidak boleh kurang dari 8 karakter</string>
+    <string name="email_taken_error">Email has been taken</string>
+    <string name="unknown_error">Network error, please try again later</string>
+    <string name="story_thumbnail">story_thumbnail</string>
+    <string name="story_name">story_name</string>
+    <string name="story_description">story_description</string>
+    <string name="lorem">lorem ipsumlorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum</string>
+    <string name="detail_image">detail image</string>
+    <string name="add_story">add story</string>
+    <string name="logout_button">logout button</string>
+    <string name="add_photo">add_photo</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="description">description</string>
+    <string name="upload">Upload</string>
+    <string name="camera_success">Photo taken</string>
+    <string name="camera_failed">Failed getting photo</string>
+    <string name="registration_success">Registration Success</string>
+    <string name="backbutton_warning">Mohon gunakan tombol logout</string>
+    <string name="empy_error">Can\'t be empty</string>
+    <string name="empty_image_error">Pick an image first</string>
+</resources>
