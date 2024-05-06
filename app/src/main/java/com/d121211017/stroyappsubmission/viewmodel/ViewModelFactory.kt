@@ -32,6 +32,8 @@ class ViewModelFactory private constructor(private val mApplication: Application
             return AddStoryViewModel(mApplication, mPref) as T
         } else if(modelClass.isAssignableFrom(MainViewModel::class.java)){
             return MainViewModel(mApplication, mPref) as T
+        } else if(modelClass.isAssignableFrom(MapViewModel::class.java)){
+            return MapViewModel(mApplication, mPref) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
