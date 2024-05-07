@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.d121211017.stroyappsubmission.R
 import com.d121211017.stroyappsubmission.data.local.UserPreferences
 import com.d121211017.stroyappsubmission.data.local.datastore
+import com.d121211017.stroyappsubmission.data.paging.LoadingStateAdapter
 import com.d121211017.stroyappsubmission.data.remote.entity.ListStoryItem
 import com.d121211017.stroyappsubmission.databinding.ActivityStoryListBinding
 import com.d121211017.stroyappsubmission.makeToast
@@ -90,7 +91,11 @@ class StoryListActivity : AppCompatActivity() {
 
     private fun setRecyclerView(pagingData: PagingData<ListStoryItem>) {
         val adapter = RecyclerViewAdapter()
-        binding.storyRv.adapter = adapter
+        binding.storyRv.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
         adapter.submitData(lifecycle, pagingData)
     }
 
