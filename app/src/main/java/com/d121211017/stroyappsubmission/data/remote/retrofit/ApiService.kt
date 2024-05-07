@@ -45,4 +45,10 @@ interface ApiService {
     fun getStoriesWithLocation(
         @Query("location") location : Int = 1
     ) : Call<GetStories>
+
+    @GET("stories")
+    fun getStoriesForPaging(
+        @Query("page") page : Int = 1,
+        @Query("size") size : Int = 20
+    ) : Call<GetStories>
 }

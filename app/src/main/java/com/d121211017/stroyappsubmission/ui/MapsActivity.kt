@@ -16,7 +16,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.d121211017.stroyappsubmission.databinding.ActivityMapsBinding
 import com.d121211017.stroyappsubmission.viewmodel.MapViewModel
-import com.d121211017.stroyappsubmission.viewmodel.StoryListViewModel
 import com.d121211017.stroyappsubmission.viewmodel.ViewModelFactory
 import com.google.android.gms.maps.model.LatLngBounds
 
@@ -69,9 +68,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         storyList.forEach {
             story ->
                 val latLng = LatLng(story.lat, story.lon)
-                mMap.addMarker(MarkerOptions().position(latLng).title(story.name).contentDescription(story.description))
+                mMap.addMarker(MarkerOptions().position(latLng).title(story.name).snippet(story.description))
                 boundsBuilder.include(latLng)
         }
+
         val bounds : LatLngBounds = boundsBuilder.build()
         mMap.animateCamera(
             CameraUpdateFactory.newLatLngBounds(

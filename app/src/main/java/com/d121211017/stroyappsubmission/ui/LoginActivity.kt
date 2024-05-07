@@ -23,7 +23,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val pref = UserPreferences.getInstance(application.datastore)
         viewModel = getViewModel(this, pref)
-
         setContentView(binding.root)
 
         viewModel.isButtonEnabled.observe(this){
