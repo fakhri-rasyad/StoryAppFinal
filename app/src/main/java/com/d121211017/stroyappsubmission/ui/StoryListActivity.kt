@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.d121211017.stroyappsubmission.R
@@ -49,7 +50,7 @@ class StoryListActivity : AppCompatActivity() {
             isLoadingStories.observe(this@StoryListActivity){
                 binding.pgBar.visibility = if(it) View.VISIBLE else View.INVISIBLE
             }
-            storyList.observe(this@StoryListActivity){
+            storiesForPaging.observe(this@StoryListActivity){
                 setRecyclerView(it)
             }
             onResponse.observe(this@StoryListActivity){
@@ -57,12 +58,6 @@ class StoryListActivity : AppCompatActivity() {
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getStoryList()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.home_menu, menu)
@@ -93,9 +88,10 @@ class StoryListActivity : AppCompatActivity() {
         return true
     }
 
-    private fun setRecyclerView(listStoryItems: List<ListStoryItem>) {
-        val adapter = RecyclerViewAdapter(listStoryItems)
+    private fun setRecyclerView(pagingData: PagingData<ListStoryItem>) {
+        val adapter = RecyclerViewAdapter()
         binding.storyRv.adapter = adapter
+        adapter.submitData(lifecycle, pagingData)
     }
 
     private fun getViewModel(appCompatActivity: AppCompatActivity, pref: UserPreferences) : StoryListViewModel {
