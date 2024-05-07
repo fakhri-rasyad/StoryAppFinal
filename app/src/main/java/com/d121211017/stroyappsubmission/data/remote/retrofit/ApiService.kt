@@ -47,8 +47,8 @@ interface ApiService {
     ) : Call<GetStories>
 
     @GET("stories")
-    fun getStoriesForPaging(
+    suspend fun getStoriesForPaging(
         @Query("page") page : Int = 1,
         @Query("size") size : Int = 20
-    ) : Call<GetStories>
+    ) : GetStories
 }
