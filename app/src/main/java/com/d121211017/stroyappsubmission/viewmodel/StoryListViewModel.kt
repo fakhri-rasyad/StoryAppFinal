@@ -25,7 +25,7 @@ class StoryListViewModel(private val pref : UserPreferences) : ViewModel() {
 
     val storiesForPaging  = myStoriesForPaging().cachedIn(viewModelScope)
 
-    private fun myStoriesForPaging() : LiveData<PagingData<ListStoryItem>>{
+    fun myStoriesForPaging() : LiveData<PagingData<ListStoryItem>>{
         val token = runBlocking { pref.getUserToken().first() }
         return Pager(
             config = PagingConfig(pageSize = 5),
