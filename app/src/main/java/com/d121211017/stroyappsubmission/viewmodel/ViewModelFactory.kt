@@ -27,7 +27,7 @@ class ViewModelFactory private constructor(private val mApplication: Application
         } else if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
             return RegisterViewModel(mApplication) as T
         } else if(modelClass.isAssignableFrom(StoryListViewModel::class.java)){
-            return StoryListViewModel(mApplication, mPref) as T
+            return StoryListViewModel(mPref) as T
         } else if(modelClass.isAssignableFrom(AddStoryViewModel::class.java)){
             return AddStoryViewModel(mApplication, mPref) as T
         } else if(modelClass.isAssignableFrom(MainViewModel::class.java)){

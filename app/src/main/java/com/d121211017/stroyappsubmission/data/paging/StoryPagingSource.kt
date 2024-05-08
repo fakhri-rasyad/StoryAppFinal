@@ -4,7 +4,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.d121211017.stroyappsubmission.data.remote.entity.ListStoryItem
 import com.d121211017.stroyappsubmission.data.remote.retrofit.ApiConfig
-import com.d121211017.stroyappsubmission.data.remote.retrofit.ApiService
 
 class StoryPagingSource(val token: String) : PagingSource<Int, ListStoryItem>(){
     private companion object {
@@ -25,7 +24,7 @@ class StoryPagingSource(val token: String) : PagingSource<Int, ListStoryItem>(){
             LoadResult.Page(
                 data = listData!!,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
-                nextKey = if (listData.isNullOrEmpty()) null else position + 1
+                nextKey = if (listData.isEmpty()) null else position + 1
             )
         } catch (exception: Exception) {
             return LoadResult.Error(exception)

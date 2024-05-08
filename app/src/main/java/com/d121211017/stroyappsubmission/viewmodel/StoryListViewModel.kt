@@ -1,6 +1,5 @@
 package com.d121211017.stroyappsubmission.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,10 +16,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class StoryListViewModel(application: Application, private val pref : UserPreferences) : ViewModel() {
-    private val _storyList = MutableLiveData<List<ListStoryItem>>()
-    val storyList : LiveData<List<ListStoryItem>> = _storyList
-
+class StoryListViewModel(private val pref : UserPreferences) : ViewModel() {
     private val _isLoadingStoriesData = MutableLiveData<Boolean>()
     val isLoadingStories : LiveData<Boolean> = _isLoadingStoriesData
 
