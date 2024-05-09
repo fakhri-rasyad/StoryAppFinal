@@ -9,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import com.d121211017.stroyappsubmission.R
-import com.d121211017.stroyappsubmission.data.local.UserPreferences
-import com.d121211017.stroyappsubmission.data.local.datastore
 import com.d121211017.stroyappsubmission.databinding.ActivityRegisterBinding
 import com.d121211017.stroyappsubmission.makeToast
 import com.d121211017.stroyappsubmission.viewmodel.RegisterViewModel
@@ -25,8 +23,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val pref = UserPreferences.getInstance(application.datastore)
-        viewModel = getViewModel(this, pref)
+        viewModel = getViewModel(this)
 
         viewModel.isButtonEnabled.observe(this){
             binding.registerButton.isEnabled = it
@@ -80,7 +77,7 @@ class RegisterActivity : AppCompatActivity() {
         playAnimation()
     }
 
-    private fun getViewModel(appCompatActivity: AppCompatActivity, pref: UserPreferences) : RegisterViewModel {
+    private fun getViewModel(appCompatActivity: AppCompatActivity) : RegisterViewModel {
         val factory = ViewModelFactory.getInstance(appCompatActivity.application)
         return ViewModelProvider(appCompatActivity, factory)[RegisterViewModel::class.java]
     }

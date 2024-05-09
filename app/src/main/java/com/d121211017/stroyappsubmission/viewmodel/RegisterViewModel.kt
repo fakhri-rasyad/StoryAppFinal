@@ -1,7 +1,6 @@
 package com.d121211017.stroyappsubmission.viewmodel
 
 import android.app.Application
-import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -9,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.d121211017.stroyappsubmission.R
 import com.d121211017.stroyappsubmission.data.remote.entity.SimpleResponse
-import com.d121211017.stroyappsubmission.data.remote.retrofit.ApiConfig
 import com.d121211017.stroyappsubmission.data.repository.StoryAppRepository
 import com.d121211017.stroyappsubmission.getErrorResponse
 import retrofit2.Call
