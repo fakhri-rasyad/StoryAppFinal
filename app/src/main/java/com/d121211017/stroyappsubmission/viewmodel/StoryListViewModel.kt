@@ -12,11 +12,12 @@ import androidx.paging.liveData
 import com.d121211017.stroyappsubmission.data.local.UserPreferences
 import com.d121211017.stroyappsubmission.data.paging.StoryPagingSource
 import com.d121211017.stroyappsubmission.data.remote.entity.ListStoryItem
+import com.d121211017.stroyappsubmission.data.repository.StoryAppRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class StoryListViewModel(private val pref : UserPreferences) : ViewModel() {
+class StoryListViewModel(private val storyAppRepository: StoryAppRepository) : ViewModel() {
     private val _isLoadingStoriesData = MutableLiveData<Boolean>()
     val isLoadingStories : LiveData<Boolean> = _isLoadingStoriesData
 
@@ -35,7 +36,7 @@ class StoryListViewModel(private val pref : UserPreferences) : ViewModel() {
 
     fun clearUserSession(){
         viewModelScope.launch {
-            pref.clearUserSession()
+            storyAppRepository.clearUserSession()
         }
     }
 

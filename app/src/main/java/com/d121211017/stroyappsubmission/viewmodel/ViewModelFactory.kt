@@ -3,7 +3,6 @@ package com.d121211017.stroyappsubmission.viewmodel
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.d121211017.stroyappsubmission.data.local.UserPreferences
 import com.d121211017.stroyappsubmission.data.repository.Injection
 
 class ViewModelFactory private constructor(private val mApplication: Application) : ViewModelProvider.NewInstanceFactory() {
@@ -34,13 +33,23 @@ class ViewModelFactory private constructor(private val mApplication: Application
                 storyAppRepository = Injection.injectRepository(context = mApplication.applicationContext),
                 application = mApplication) as T
         } else if(modelClass.isAssignableFrom(StoryListViewModel::class.java)){
-            return StoryListViewModel(mPref) as T
+            return StoryListViewModel(
+                storyAppRepository = Injection.injectRepository(context = mApplication.applicationContext)
+            ) as T
         } else if(modelClass.isAssignableFrom(AddStoryViewModel::class.java)){
-            return AddStoryViewModel(mApplication, mPref) as T
+            return AddStoryViewModel(
+                storyAppRepository = Injection.injectRepository(context = mApplication.applicationContext),
+                application = mApplication
+            ) as T
         } else if(modelClass.isAssignableFrom(MainViewModel::class.java)){
-            return MainViewModel(mApplication, mPref) as T
+            return MainViewModel(
+                storyAppRepository = Injection.injectRepository(context = mApplication.applicationContext)
+            ) as T
         } else if(modelClass.isAssignableFrom(MapViewModel::class.java)){
-            return MapViewModel(mApplication, mPref) as T
+            return MapViewModel(
+                storyAppRepository = Injection.injectRepository(context = mApplication.applicationContext),
+                application = mApplication
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

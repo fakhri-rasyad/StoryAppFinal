@@ -7,14 +7,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.d121211017.stroyappsubmission.R
-import com.d121211017.stroyappsubmission.data.local.UserPreferences
 import com.d121211017.stroyappsubmission.data.remote.entity.SimpleResponse
-import com.d121211017.stroyappsubmission.data.remote.retrofit.ApiConfig
+import com.d121211017.stroyappsubmission.data.repository.StoryAppRepository
 import com.d121211017.stroyappsubmission.getErrorResponse
 import com.d121211017.stroyappsubmission.reduceFileImage
 import com.d121211017.stroyappsubmission.uriToFile
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -23,9 +20,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddStoryViewModel(application: Application, pref: UserPreferences) : ViewModel(){
-    private val applicationContext = application.applicationContext
-    private val userPreferences = pref
+class AddStoryViewModel(
+    private val storyAppRepository: StoryAppRepository,
+    private val application: Application
+) : ViewModel(){
 
     private val _imageUri = MutableLiveData<Uri>()
     val imageUri : LiveData<Uri> = _imageUri
@@ -46,7 +44,7 @@ class AddStoryViewModel(application: Application, pref: UserPreferences) : ViewM
     fun postStory(description: String){
         _isLoading.postValue(true)
         val uri = _imageUri.value!!
-        val imageFile = uriToFile(uri, applicationContext).reduceFileImage()
+        val imageFile = uriToFile(uri, application.applicationContext).reduceFileImage()
         Log.d("Image File", "showImage: ${imageFile.path}")
         val requestBody = description.toRequestBody("text/plain".toMediaType())
         val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
@@ -56,8 +54,7 @@ class AddStoryViewModel(application: Application, pref: UserPreferences) : ViewM
             requestImageFile
         )
 
-        val token = runBlocking { userPreferences.getUserToken().first() }
-        val client = ApiConfig.getApiService(token).addStory(file = multipartBody, description = requestBody)
+        val client = storyAppRepository.addUserStory(description = requestBody, file = multipartBody)
 
         client.enqueue(object : Callback<SimpleResponse>{
             override fun onResponse(p0: Call<SimpleResponse>, p1: Response<SimpleResponse>) {
@@ -75,7 +72,7 @@ class AddStoryViewModel(application: Application, pref: UserPreferences) : ViewM
 
             override fun onFailure(p0: Call<SimpleResponse>, p1: Throwable) {
                 _isLoading.postValue(false)
-                _response.postValue(applicationContext.getString(R.string.unknown_error))
+                _response.postValue(application.applicationContext.getString(R.string.unknown_error))
                 _isUploadSuccess.postValue(false)
             }
         })

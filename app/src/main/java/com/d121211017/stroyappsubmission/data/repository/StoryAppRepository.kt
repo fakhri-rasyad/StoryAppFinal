@@ -17,6 +17,9 @@ class StoryAppRepository(
         apiService.getStoriesForPaging()
     }
 
+    fun getStoriesWithLocation() =
+        apiService.getStoriesWithLocation()
+
     fun registerAccount(userName: String, userEmail : String, userPassword: String) =
         apiService.registerAccount(userName, userEmail, userPassword)
 

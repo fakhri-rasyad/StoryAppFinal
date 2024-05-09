@@ -5,20 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.d121211017.stroyappsubmission.R
-import com.d121211017.stroyappsubmission.data.local.UserPreferences
 import com.d121211017.stroyappsubmission.data.remote.entity.GetStories
 import com.d121211017.stroyappsubmission.data.remote.entity.ListStoryItem
-import com.d121211017.stroyappsubmission.data.remote.retrofit.ApiConfig
+import com.d121211017.stroyappsubmission.data.repository.StoryAppRepository
 import com.d121211017.stroyappsubmission.getErrorResponse
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MapViewModel(application: Application, pref: UserPreferences) : ViewModel() {
-    private val userPref = pref
-    private val applicationContext = application.applicationContext
+class MapViewModel(
+    private val storyAppRepository: StoryAppRepository,
+    private val application: Application) : ViewModel() {
 
     private val _storiesWithLocation = MutableLiveData<List<ListStoryItem>>()
     val storiesWithLocation : LiveData<List<ListStoryItem>> = _storiesWithLocation
@@ -31,9 +28,7 @@ class MapViewModel(application: Application, pref: UserPreferences) : ViewModel(
     }
 
     private fun getStoriesWithLocation(){
-        val token = runBlocking { userPref.getUserToken().first() }
-        val client = ApiConfig.getApiService(token = token).getStoriesWithLocation(location = 1)
-
+        val client = storyAppRepository.getStoriesWithLocation()
         client.enqueue(object : Callback<GetStories>{
             override fun onResponse(p0: Call<GetStories>, p1: Response<GetStories>) {
                 val responseBody = p1.body()
@@ -47,7 +42,7 @@ class MapViewModel(application: Application, pref: UserPreferences) : ViewModel(
             }
 
             override fun onFailure(p0: Call<GetStories>, p1: Throwable) {
-                _errorResponse.postValue(Pair(true, applicationContext.getString(R.string.unknown_error)))
+                _errorResponse.postValue(Pair(true, application.applicationContext.getString(R.string.unknown_error)))
             }
         })
     }

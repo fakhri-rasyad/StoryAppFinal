@@ -1,16 +1,13 @@
 package com.d121211017.stroyappsubmission.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
-import com.d121211017.stroyappsubmission.data.local.UserPreferences
-import kotlinx.coroutines.flow.first
+import com.d121211017.stroyappsubmission.data.repository.StoryAppRepository
 import kotlinx.coroutines.runBlocking
 
-class MainViewModel(application: Application, pref: UserPreferences) : ViewModel() {
+class MainViewModel(private val storyAppRepository: StoryAppRepository) : ViewModel() {
 
-    private val userPreferences = pref
     fun checkForUserPref() : Boolean{
-        val token = runBlocking {userPreferences.getUserToken().first()}
+        val token = runBlocking { storyAppRepository.getUserToken() }
         return token != ""
     }
 }
