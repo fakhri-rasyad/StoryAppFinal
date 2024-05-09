@@ -65,8 +65,10 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.2.0")
 
+
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.play.services.maps)
+    implementation(libs.core.ktx)
 
     testImplementation(libs.junit)
     testImplementation("androidx.arch.core:core-testing:2.2.0") // InstantTaskExecutorRule
@@ -76,4 +78,5 @@ dependencies {
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation("androidx.test:core:1.4.0")
 }

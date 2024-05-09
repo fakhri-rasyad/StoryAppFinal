@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.d121211017.stroyappsubmission.data.remote.entity.LoginResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -17,11 +18,11 @@ class UserPreferences private constructor(private val dataStore : DataStore<Pref
     private val userName = stringPreferencesKey("user_name")
     private val userId = stringPreferencesKey("user_id")
 
-    suspend fun saveUserData(userToken : String, userName: String, userId : String) {
+    suspend fun saveUserData(userData : LoginResult) {
         dataStore.edit {
-            it[this.userToken] = userToken
-            it[this.userName] = userName
-            it[this.userId] = userId
+            it[this.userToken] = userData.token.toString()
+            it[this.userName] = userData.name.toString()
+            it[this.userId] = userData.userId.toString()
         }
     }
 
@@ -33,9 +34,7 @@ class UserPreferences private constructor(private val dataStore : DataStore<Pref
 
     suspend fun clearUserSession(){
         dataStore.edit {
-            it[this.userToken] = ""
-            it[this.userName] = ""
-            it[this.userId] = ""
+            it.clear()
         }
     }
 

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.d121211017.stroyappsubmission.data.local.UserPreferences
+import com.d121211017.stroyappsubmission.data.repository.Injection
 
 class ViewModelFactory private constructor(private val mApplication: Application, private val mPref: UserPreferences) : ViewModelProvider.NewInstanceFactory() {
     companion object {
@@ -22,10 +23,17 @@ class ViewModelFactory private constructor(private val mApplication: Application
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
+
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            return LoginViewModel(mApplication, mPref) as T
+            return LoginViewModel(
+                storyAppRepository = Injection.injectRepository(context = mApplication.applicationContext),
+                application = mApplication
+                ) as T
         } else if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
-            return RegisterViewModel(mApplication) as T
+            return RegisterViewModel(
+                storyAppRepository = Injection.injectRepository(context = mApplication.applicationContext),
+                application = mApplication
+            ) as T
         } else if(modelClass.isAssignableFrom(StoryListViewModel::class.java)){
             return StoryListViewModel(mPref) as T
         } else if(modelClass.isAssignableFrom(AddStoryViewModel::class.java)){

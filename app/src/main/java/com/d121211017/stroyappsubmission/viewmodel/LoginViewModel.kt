@@ -12,14 +12,14 @@ import com.d121211017.stroyappsubmission.R
 import com.d121211017.stroyappsubmission.data.local.UserPreferences
 import com.d121211017.stroyappsubmission.data.remote.entity.LoginResponse
 import com.d121211017.stroyappsubmission.data.remote.retrofit.ApiConfig
+import com.d121211017.stroyappsubmission.data.repository.StoryAppRepository
 import com.d121211017.stroyappsubmission.getErrorResponse
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel(application : Application, private val pref: UserPreferences) : ViewModel() {
-
+class LoginViewModel(private val storyAppRepository: StoryAppRepository, private val application : Application, ) : ViewModel() {
     private val _isEmailValid = MutableLiveData<Boolean>()
     private val _isPasswordValid  = MutableLiveData<Boolean>()
 
@@ -54,9 +54,8 @@ class LoginViewModel(application : Application, private val pref: UserPreference
                 if(p1.isSuccessful && responseBody != null){
                     val loginResult = responseBody.loginResult!!
                     viewModelScope.launch {
-                        pref.saveUserData(loginResult.token!!, loginResult.name!!, loginResult.userId!!)
+                        storyAppRepository.saveUserSession(loginResult)
                     }
-
                     _isLoginSuccess.postValue(true)
                 } else if (!p1.isSuccessful) {
                     val errorResponse = getErrorResponse(p1.errorBody()!!.string())

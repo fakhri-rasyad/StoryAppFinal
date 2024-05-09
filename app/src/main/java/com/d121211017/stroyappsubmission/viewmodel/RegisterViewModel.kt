@@ -10,14 +10,13 @@ import androidx.lifecycle.ViewModel
 import com.d121211017.stroyappsubmission.R
 import com.d121211017.stroyappsubmission.data.remote.entity.SimpleResponse
 import com.d121211017.stroyappsubmission.data.remote.retrofit.ApiConfig
+import com.d121211017.stroyappsubmission.data.repository.StoryAppRepository
 import com.d121211017.stroyappsubmission.getErrorResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegisterViewModel(application: Application): ViewModel() {
-
-    private val applicationContext : Context = application.applicationContext
+class RegisterViewModel(private val storyAppRepository: StoryAppRepository, private val application: Application): ViewModel() {
 
     private val _isLoadingRegistration = MutableLiveData<Boolean>()
     val loadingRegistration : LiveData<Boolean> = _isLoadingRegistration
@@ -59,7 +58,7 @@ class RegisterViewModel(application: Application): ViewModel() {
             }
             override fun onFailure(p0: Call<SimpleResponse>, p1: Throwable) {
                 _isLoadingRegistration.postValue(false)
-                _handleResponseError.postValue(Pair(false, applicationContext.getString(R.string.unknown_error)))
+                _handleResponseError.postValue(Pair(false, application.applicationContext.getString(R.string.unknown_error)))
             }
         })
     }
