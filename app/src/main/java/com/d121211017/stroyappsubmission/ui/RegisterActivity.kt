@@ -81,7 +81,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun getViewModel(appCompatActivity: AppCompatActivity, pref: UserPreferences) : RegisterViewModel {
-        val factory = ViewModelFactory.getInstance(appCompatActivity.application, pref)
+        val factory = ViewModelFactory.getInstance(appCompatActivity.application)
         return ViewModelProvider(appCompatActivity, factory)[RegisterViewModel::class.java]
     }
 

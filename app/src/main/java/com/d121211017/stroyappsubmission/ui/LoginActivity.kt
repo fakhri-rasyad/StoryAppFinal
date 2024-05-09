@@ -8,8 +8,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
-import com.d121211017.stroyappsubmission.data.local.UserPreferences
-import com.d121211017.stroyappsubmission.data.local.datastore
 import com.d121211017.stroyappsubmission.databinding.ActivityLoginBinding
 import com.d121211017.stroyappsubmission.makeToast
 import com.d121211017.stroyappsubmission.viewmodel.LoginViewModel
@@ -21,8 +19,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        val pref = UserPreferences.getInstance(application.datastore)
-        viewModel = getViewModel(this, pref)
+        viewModel = getViewModel(this)
         setContentView(binding.root)
 
         viewModel.isButtonEnabled.observe(this){
@@ -84,8 +81,8 @@ class LoginActivity : AppCompatActivity() {
         playAnimation()
     }
 
-    private fun getViewModel(appCompatActivity: AppCompatActivity, pref: UserPreferences) : LoginViewModel {
-        val factory = ViewModelFactory.getInstance(appCompatActivity.application, pref)
+    private fun getViewModel(appCompatActivity: AppCompatActivity) : LoginViewModel {
+        val factory = ViewModelFactory.getInstance(appCompatActivity.application)
         return ViewModelProvider(appCompatActivity, factory)[LoginViewModel::class.java]
     }
 

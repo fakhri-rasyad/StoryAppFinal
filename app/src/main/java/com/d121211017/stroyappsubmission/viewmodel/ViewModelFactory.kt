@@ -6,15 +6,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.d121211017.stroyappsubmission.data.local.UserPreferences
 import com.d121211017.stroyappsubmission.data.repository.Injection
 
-class ViewModelFactory private constructor(private val mApplication: Application, private val mPref: UserPreferences) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory private constructor(private val mApplication: Application) : ViewModelProvider.NewInstanceFactory() {
     companion object {
         @Volatile
         private var INSTANCE: ViewModelFactory? = null
         @JvmStatic
-        fun getInstance(application: Application, preferences: UserPreferences): ViewModelFactory {
+        fun getInstance(application: Application): ViewModelFactory {
             if (INSTANCE == null) {
                 synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(application, preferences)
+                    INSTANCE = ViewModelFactory(application)
                 }
             }
             return INSTANCE as ViewModelFactory
@@ -32,8 +32,7 @@ class ViewModelFactory private constructor(private val mApplication: Application
         } else if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
             return RegisterViewModel(
                 storyAppRepository = Injection.injectRepository(context = mApplication.applicationContext),
-                application = mApplication
-            ) as T
+                application = mApplication) as T
         } else if(modelClass.isAssignableFrom(StoryListViewModel::class.java)){
             return StoryListViewModel(mPref) as T
         } else if(modelClass.isAssignableFrom(AddStoryViewModel::class.java)){

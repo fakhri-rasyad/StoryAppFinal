@@ -17,22 +17,22 @@ class StoryAppRepository(
         apiService.getStoriesForPaging()
     }
 
-    fun registerAccount(userName: String, userEmail : String, userPassword: String){
+    fun registerAccount(userName: String, userEmail : String, userPassword: String) =
         apiService.registerAccount(userName, userEmail, userPassword)
-    }
 
-    fun loginAccount(userEmail: String, userPassword: String){
+
+    fun loginAccount(userEmail: String, userPassword: String) =
         apiService.loginAccount(userEmail, userPassword)
-    }
 
-    fun addUserStory(description: RequestBody, file: MultipartBody.Part){
+
+    fun addUserStory(description: RequestBody, file: MultipartBody.Part) =
         apiService.addStory(description, file)
-    }
+
 
     //Datastore management
-    suspend fun getUserToken(): String{
-        return userPreferences.getUserToken().first()
-    }
+    suspend fun getUserToken(): String =
+        userPreferences.getUserToken().first()
+
 
     suspend fun saveUserSession(userData: LoginResult){
         userPreferences.saveUserData(userData)

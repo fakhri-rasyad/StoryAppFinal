@@ -44,7 +44,7 @@ class RegisterViewModel(private val storyAppRepository: StoryAppRepository, priv
     fun postRegistration(
     ){
         _isLoadingRegistration.postValue(true)
-        val client = ApiConfig.getApiService().registerAccount(name, email, password)
+        val client = storyAppRepository.registerAccount(userName = name, userEmail = email, userPassword = password)
         client.enqueue(object : Callback<SimpleResponse> {
             override fun onResponse(p0: Call<SimpleResponse>, p1: Response<SimpleResponse>) {
                 _isLoadingRegistration.postValue(false)
