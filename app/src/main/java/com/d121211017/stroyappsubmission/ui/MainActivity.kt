@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.d121211017.stroyappsubmission.data.local.UserPreferences
-import com.d121211017.stroyappsubmission.data.local.datastore
 import com.d121211017.stroyappsubmission.databinding.ActivityMainBinding
 import com.d121211017.stroyappsubmission.viewmodel.MainViewModel
 import com.d121211017.stroyappsubmission.viewmodel.ViewModelFactory
@@ -18,9 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val pref = UserPreferences.getInstance(application.datastore)
-        viewModel = getViewModel(this, pref)
+        viewModel = getViewModel(this)
 
         if(viewModel.checkForUserPref()){
             val intent = Intent(this, StoryListActivity::class.java)
@@ -39,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getViewModel(appCompatActivity: AppCompatActivity, pref: UserPreferences) : MainViewModel {
-        val factory = ViewModelFactory.getInstance(appCompatActivity.application, pref)
+    private fun getViewModel(appCompatActivity: AppCompatActivity) : MainViewModel {
+        val factory = ViewModelFactory.getInstance(appCompatActivity.application)
         return ViewModelProvider(appCompatActivity, factory)[MainViewModel::class.java]
     }
 }

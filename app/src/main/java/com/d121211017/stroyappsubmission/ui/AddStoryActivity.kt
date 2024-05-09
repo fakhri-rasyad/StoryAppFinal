@@ -29,9 +29,9 @@ class AddStoryActivity : AppCompatActivity() {
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val pref = UserPreferences.getInstance(application.datastore)
+        UserPreferences.getInstance(application.datastore)
 
-        viewModel = getViewModel(this, pref)
+        viewModel = getViewModel(this)
 
         viewModel.apply {
             imageUri.observe(this@AddStoryActivity){
@@ -107,8 +107,8 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
-    private fun getViewModel(appCompatActivity: AppCompatActivity, pref: UserPreferences) : AddStoryViewModel {
-        val factory = ViewModelFactory.getInstance(appCompatActivity.application, pref)
+    private fun getViewModel(appCompatActivity: AppCompatActivity) : AddStoryViewModel {
+        val factory = ViewModelFactory.getInstance(appCompatActivity.application)
         return ViewModelProvider(appCompatActivity, factory)[AddStoryViewModel::class.java]
     }
 }

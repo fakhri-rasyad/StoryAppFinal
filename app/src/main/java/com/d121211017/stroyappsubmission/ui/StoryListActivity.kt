@@ -11,8 +11,6 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.d121211017.stroyappsubmission.R
-import com.d121211017.stroyappsubmission.data.local.UserPreferences
-import com.d121211017.stroyappsubmission.data.local.datastore
 import com.d121211017.stroyappsubmission.data.paging.LoadingStateAdapter
 import com.d121211017.stroyappsubmission.data.remote.entity.ListStoryItem
 import com.d121211017.stroyappsubmission.databinding.ActivityStoryListBinding
@@ -30,8 +28,7 @@ class StoryListActivity : AppCompatActivity() {
         binding = ActivityStoryListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val pref = UserPreferences.getInstance(application.datastore)
-        viewModel = getViewModel(this, pref)
+        viewModel = getViewModel(this)
 
         val layoutManager = LinearLayoutManager(this)
         val layoutDecoration = DividerItemDecoration(this, layoutManager.orientation)
@@ -99,8 +96,8 @@ class StoryListActivity : AppCompatActivity() {
         adapter.submitData(lifecycle, pagingData)
     }
 
-    private fun getViewModel(appCompatActivity: AppCompatActivity, pref: UserPreferences) : StoryListViewModel {
-        val factory = ViewModelFactory.getInstance(appCompatActivity.application, pref)
+    private fun getViewModel(appCompatActivity: AppCompatActivity) : StoryListViewModel {
+        val factory = ViewModelFactory.getInstance(appCompatActivity.application)
         return ViewModelProvider(appCompatActivity, factory)[StoryListViewModel::class.java]
     }
 }

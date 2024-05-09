@@ -1,31 +1,27 @@
 package com.d121211017.stroyappsubmission.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.d121211017.stroyappsubmission.R
-import com.d121211017.stroyappsubmission.data.local.UserPreferences
-import com.d121211017.stroyappsubmission.data.local.datastore
 import com.d121211017.stroyappsubmission.data.remote.entity.ListStoryItem
-
+import com.d121211017.stroyappsubmission.databinding.ActivityMapsBinding
+import com.d121211017.stroyappsubmission.viewmodel.MapViewModel
+import com.d121211017.stroyappsubmission.viewmodel.ViewModelFactory
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.d121211017.stroyappsubmission.databinding.ActivityMapsBinding
-import com.d121211017.stroyappsubmission.viewmodel.MapViewModel
-import com.d121211017.stroyappsubmission.viewmodel.ViewModelFactory
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var viewModel : MapViewModel
-    private lateinit var pref : UserPreferences
     private val boundsBuilder = LatLngBounds.Builder()
 
 
@@ -34,9 +30,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        pref = UserPreferences.getInstance(application.datastore)
-        viewModel = getViewModel(this, pref)
+        viewModel = getViewModel(this)
 
         viewModel.storiesWithLocation.observe(this){
             addManyMarker(it)
@@ -61,8 +55,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
     }
-    private fun getViewModel(appCompatActivity: AppCompatActivity, pref: UserPreferences) : MapViewModel {
-        val factory = ViewModelFactory.getInstance(appCompatActivity.application, pref)
+    private fun getViewModel(appCompatActivity: AppCompatActivity) : MapViewModel {
+        val factory = ViewModelFactory.getInstance(appCompatActivity.application)
         return ViewModelProvider(appCompatActivity, factory)[MapViewModel::class.java]
     }
 
