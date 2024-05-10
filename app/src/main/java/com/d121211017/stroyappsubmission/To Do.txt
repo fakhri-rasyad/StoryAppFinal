@@ -17,7 +17,8 @@ Loading ketika memuat data
 Informasi error ketika gagal
 Pesan informasi ketika tidak ada data
 [CLEAR]
-Menggunakan custom map style tersendiri pada Google Maps.
+Menggunakan custom map style tersendiri pada Google Maps. [CLEAR]
+
 Menggunakan Paging 3 dengan menggunakan RemoteMediator.
 
 Menambahkan input lokasi saat ini dari GPS yang bersifat opsional (gunakan checkbox atau switch) ketika tambah cerita.

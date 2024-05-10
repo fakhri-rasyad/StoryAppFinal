@@ -44,6 +44,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         setMapStyle()
+        mMap.uiSettings.isZoomControlsEnabled = true
     }
 
     private fun setMapStyle(){

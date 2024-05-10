@@ -65,19 +65,30 @@
                     >
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@id/description_input_layout"
+                android:checked="true"
+                android:text="@string/with_location"
+                android:textStyle="bold"
+                />
             <ProgressBar
                 android:id="@+id/pg_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
-                android:layout_below="@id/description_input_layout"
+                android:layout_below="@id/switch_location"
                 android:visibility="invisible"
                 />
             <Button
                 android:id="@+id/button_add"
                 android:layout_marginVertical="16dp"
                 android:layout_marginHorizontal="8dp"
-                android:layout_below="@id/description_input_layout"
+                android:layout_below="@id/switch_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/upload"
