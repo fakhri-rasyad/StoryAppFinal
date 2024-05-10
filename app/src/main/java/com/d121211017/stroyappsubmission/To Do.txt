@@ -1,60 +1,29 @@
-Membuat tampilan register dan login. [CLEAR]
-Membuat custom view untuk validasi password. [CLEAR]
-Menghubungkan proses register dan login dengan API. [CLEAR]
-Menyimpan session ke DataStore setelah login. [CLEAR]
-Menampilkan list story dari API. [CLEAR]
-Menampilkan halaman detail story ketika salah satu list dipilih. [CLEAR]
-Membuat halaman tambah story yang terintegrasi dengan Camera & Gallery. [CLEAR]
-Meng-upload story baru ke API. [CLEAR]
+Mempertahankan Fitur dari Submission Sebelumnya
+Syarat yang harus dipenuhi sebagai berikut.
+
+
+Saran Submission
+Submission Anda akan dinilai oleh reviewer dengan skala 1-5 berdasarkan dari parameter yang ada.
+
+Anda dapat menerapkan beberapa saran di bawah ini untuk mendapatkan nilai tinggi.
 
 Menuliskan kode dengan bersih.
-    Bersihkan comment dan kode yang tidak digunakan.
-    Indentasi yang sesuai.
-    Menghapus import yang tidak digunakan.
-    [CLEAR]
-
-Membuat Custom View berupa EditText dengan ketentuan sebagai berikut.
-    Jika format email salah, menampilkan error langsung pada EditText.
-    [CLEAR]
-
-Menambahkan opsi mengambil gambar dari kamera pada saat menambah cerita. [CLEAR]
-
-Pada proses register, login, dan upload, aplikasi langsung pindah begitu saja. Pastikan hanya berpindah ketika sudah mendapatkan respons berhasil atau gagal.
+Bersihkan comment dan kode yang tidak digunakan.
+Indentasi yang sesuai.
+Menghapus import yang tidak digunakan.
 [CLEAR]
-
-Mengimplemantasikan alur aplikasi yang tepat:
-Setelah login, ketika ditekan back pada halaman home, tidak kembali ke halaman login tetapi keluar.[CLEAR]
-Setelah upload, ketika ditekan back pada halaman home, tidak kembali ke halaman upload tetapi keluar. [CLEAR]
-Setelah logout, ketika ditekan back, tidak kembali ke dalam aplikasi tetapi keluar. [CLEAR]
-
-Membuat stack widget untuk menampilkan daftar cerita.
-
-Terdapat pengaturan untuk localization (multi bahasa).
-
 Menambahkan informasi selama proses interaksi dengan API:
-Loading ketika memuat data [CLEAR]
-Informasi error ketika gagal [CLEAR]
-Pesan informasi ketika tidak ada data [CLEAR]
+Loading ketika memuat data
+Informasi error ketika gagal
+Pesan informasi ketika tidak ada data
+[CLEAR]
+Menggunakan custom map style tersendiri pada Google Maps.
+Menggunakan Paging 3 dengan menggunakan RemoteMediator.
+
+Menambahkan input lokasi saat ini dari GPS yang bersifat opsional (gunakan checkbox atau switch) ketika tambah cerita.
 
 Menerapkan Android Architecture Component (minimal ViewModel dan LiveData) dengan benar di semua halaman yang mengandung business logic.
 [CLEAR]
-
-sample email
-name = sample_name
-email = sample@myemail.com
-password = sample_password
-
-sample2
-name = sample2
-email = testme2@mail.com
-password = 12345678
-
-{
-    "error": false,
-    "message": "success",
-    "loginResult": {
-        "userId": "user-yj5pc_LARC_AgK61",
-        "name": "Arif Faizin",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLXlqNXBjX0xBUkNfQWdLNjEiLCJpYXQiOjE2NDE3OTk5NDl9.flEMaQ7zsdYkxuyGbiXjEDXO8kuDTcI__3UjCwt6R_I"
-    }
-}
+Menerapkan UI test dan idling resources untuk salah satu skenario berikut.
+Memastikan mekanisme proses login dan logout.
+Memastikan mekanisme proses tambah cerita.

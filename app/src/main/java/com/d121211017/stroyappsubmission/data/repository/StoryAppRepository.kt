@@ -19,10 +19,6 @@ class StoryAppRepository(
     private val userPreferences: UserPreferences
 ) {
 
-    //Remote data management
-    suspend fun getStories() =
-        apiService.getStoriesForPaging()
-
 
     fun getStoriesWithLocation() =
         apiService.getStoriesWithLocation()
