@@ -1,13 +1,11 @@
 package com.d121211017.stroyappsubmission.data.paging
 
-import androidx.lifecycle.LiveData
-import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.d121211017.stroyappsubmission.data.remote.entity.ListStoryItem
-import com.d121211017.stroyappsubmission.data.remote.retrofit.ApiConfig
+import com.d121211017.stroyappsubmission.data.remote.retrofit.ApiService
 
-class StoryPagingSource(val token: String) : PagingSource<Int, ListStoryItem>(){
+class StoryPagingSource(private val apiService: ApiService) : PagingSource<Int, ListStoryItem>(){
     private companion object {
         const val INITIAL_PAGE_INDEX = 1
     }
@@ -21,7 +19,7 @@ class StoryPagingSource(val token: String) : PagingSource<Int, ListStoryItem>(){
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ListStoryItem> {
         return try {
             val position = params.key ?: INITIAL_PAGE_INDEX
-            val responseData = ApiConfig.getApiService(token = token).getStoriesForPaging(position, params.loadSize)
+            val responseData = apiService.getStoriesForPaging()
             val listData = responseData.listStory
             LoadResult.Page(
                 data = listData!!,

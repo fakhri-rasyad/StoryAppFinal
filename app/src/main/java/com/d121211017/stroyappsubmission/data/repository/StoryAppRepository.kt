@@ -1,6 +1,13 @@
 package com.d121211017.stroyappsubmission.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.d121211017.stroyappsubmission.data.local.UserPreferences
+import com.d121211017.stroyappsubmission.data.paging.StoryPagingSource
+import com.d121211017.stroyappsubmission.data.remote.entity.ListStoryItem
 import com.d121211017.stroyappsubmission.data.remote.entity.LoginResult
 import com.d121211017.stroyappsubmission.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.first
@@ -13,9 +20,9 @@ class StoryAppRepository(
 ) {
 
     //Remote data management
-    suspend fun getStories(){
+    suspend fun getStories() =
         apiService.getStoriesForPaging()
-    }
+
 
     fun getStoriesWithLocation() =
         apiService.getStoriesWithLocation()
@@ -43,6 +50,15 @@ class StoryAppRepository(
 
     suspend fun clearUserSession(){
         userPreferences.clearUserSession()
+    }
+
+    //Paging
+
+    fun myStoriesForPaging() : LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(pageSize = 5),
+            pagingSourceFactory = { StoryPagingSource(apiService = apiService) }
+        ).liveData
     }
 
     companion object {

@@ -9,6 +9,12 @@ android {
     namespace = "com.d121211017.stroyappsubmission"
     compileSdk = 34
 
+    testOptions {
+        unitTests {
+            isReturnDefaultValues = true
+        }
+    }
+
     defaultConfig {
         applicationId = "com.d121211017.stroyappsubmission"
         minSdk = 24
@@ -27,6 +33,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+
     }
 
     buildFeatures {
@@ -41,6 +48,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
 }
 
 dependencies {

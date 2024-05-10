@@ -9,9 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.d121211017.stroyappsubmission.R
-import com.d121211017.stroyappsubmission.data.local.UserPreferences
 import com.d121211017.stroyappsubmission.data.remote.entity.LoginResponse
-import com.d121211017.stroyappsubmission.data.remote.retrofit.ApiConfig
 import com.d121211017.stroyappsubmission.data.repository.StoryAppRepository
 import com.d121211017.stroyappsubmission.getErrorResponse
 import kotlinx.coroutines.launch
@@ -19,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel(private val storyAppRepository: StoryAppRepository, private val application : Application, ) : ViewModel() {
+class LoginViewModel(private val storyAppRepository: StoryAppRepository, application : Application ) : ViewModel() {
     private val _isEmailValid = MutableLiveData<Boolean>()
     private val _isPasswordValid  = MutableLiveData<Boolean>()
 
@@ -46,7 +44,8 @@ class LoginViewModel(private val storyAppRepository: StoryAppRepository, private
     fun postLogin(){
         _isLoadingLogin.postValue(true)
 
-        val client = ApiConfig.getApiService().loginAccount(email, password)
+        val client = storyAppRepository.loginAccount(userEmail = email, userPassword = password)
+//        val client = ApiConfig.getApiService().loginAccount(email, password)
         client.enqueue(object: Callback<LoginResponse>{
             override fun onResponse(p0: Call<LoginResponse>, p1: Response<LoginResponse>) {
                 _isLoadingLogin.postValue(false)

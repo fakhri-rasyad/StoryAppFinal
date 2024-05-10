@@ -2,7 +2,6 @@ package com.d121211017.stroyappsubmission.viewmodel
 
 import android.app.Application
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -45,7 +44,6 @@ class AddStoryViewModel(
         _isLoading.postValue(true)
         val uri = _imageUri.value!!
         val imageFile = uriToFile(uri, application.applicationContext).reduceFileImage()
-        Log.d("Image File", "showImage: ${imageFile.path}")
         val requestBody = description.toRequestBody("text/plain".toMediaType())
         val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
         val multipartBody = MultipartBody.Part.createFormData(

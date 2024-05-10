@@ -1,7 +1,6 @@
 package com.d121211017.stroyappsubmission.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.d121211017.stroyappsubmission.R
@@ -34,7 +33,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         viewModel.storiesWithLocation.observe(this){
             addManyMarker(it)
-            Log.d("MapActivity", "${it[0].lon} ${it[0].lat}")
         }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -62,7 +60,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun addManyMarker(storyList : List<ListStoryItem>){
         storyList.forEach { story ->
-            Log.d("MapActivity", "${story.name}, ${story.lat}, ${story.lon}")
                 val latLng = LatLng(story.lat, story.lon)
                 mMap.addMarker(MarkerOptions().position(latLng).title(story.name).snippet(story.description))
                 boundsBuilder.include(latLng)
